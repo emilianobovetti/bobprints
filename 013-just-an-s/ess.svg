@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="11.8mm"
+   height="19.6mm"
+   viewBox="0 0 11.799999 19.6"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="ess.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="8.5550004"
+     inkscape:cx="54.646403"
+     inkscape:cy="34.482757"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text225" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fill_between_many"
+       method="originald"
+       linkedpaths="#path301,0,1"
+       id="path-effect304"
+       is_visible="true"
+       lpeversion="0"
+       join="true"
+       close="true"
+       autoreverse="true" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       aria-label="s"
+       id="text171"
+       style="font-size:3.175px;line-height:1.25;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583">
+      <g
+         aria-label="s"
+         id="text266"
+         style="font-size:25.4px;line-height:0;stroke-width:0.0700042">
+        <g
+           aria-label="s"
+           id="text286"
+           style="font-size:34.7474px;line-height:1.25;stroke-width:0.202705">
+          <g
+             aria-label="s"
+             id="text299"
+             style="font-size:31.9705px;stroke-width:0.540048">
+            <g
+               aria-label="s"
+               id="text225"
+               style="font-size:25.4px;stroke-width:0.142888">
+              <path
+                 style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-dasharray:none"
+                 d="M 0.23308213,11.809411 C 1.9282423,28.063964 20.515307,13.619732 6.3083687,9.4660147 -7.8985704,5.3122969 8.9640497,-7.4173789 11.508129,6.8305508"
+                 id="path408"
+                 sodipodi:nodetypes="czc" />
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
