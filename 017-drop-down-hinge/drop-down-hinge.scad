@@ -1,10 +1,11 @@
 $fn = 100;
 
-arm_width = 10;
-arm_length = 110;
+arm_width = 15;
+arm_length = 112;
 arm_thickness = 2;
-arm_hole_radius = 2.5;
-pin_space = 0.3;
+arm_hole_border = 3;
+arm_hole_radius = arm_width / 2 - arm_hole_border;
+pin_space = 0.4;
 lock_ext_width = 5;
 lock_ext_length = 10;
 
@@ -31,19 +32,31 @@ module half_rounded_square(size, border_radius = 0.5) hull() {
       square(size = [ size.x, border_radius ], center = true);
 }
 
-module screw_support() {
-  base_length = arm_width;
-  border_radius = 2;
+module beveled_border(length, height) difference() {
+  translate([ 0, -length / 2 ]) cube([ height, length, height ]);
 
-  rotate(90) linear_extrude(height = 1)
-      half_rounded_square([ arm_width, base_length ], border_radius);
-
-  screw_wall(base_length, border_radius);
+  translate([ height, 0, height ]) rotate([ 90, 0 ])
+      cylinder(h = length + 0.2, r = height, center = true);
 }
 
-module screw_wall(base_length, border_radius) {
+module screw_support() {
+  base_length = arm_width;
+  base_height = 2;
+  border_radius = 2;
+  wall_thickness = 3;
+
+  rotate(90) linear_extrude(base_height)
+      half_rounded_square([ arm_width, base_length ], border_radius);
+
+  translate([ base_length / 2 - wall_thickness, 0, base_height ])
+      mirror([ 1, 0 ])
+          beveled_border(length = base_length, height = base_height);
+
+  screw_wall(wall_thickness, base_length, border_radius);
+}
+
+module screw_wall(screw_wall_thickness, base_length, border_radius) {
   screw_wall_width = 26;
-  screw_wall_thickness = 2;
   screw_wall_height = 11.5;
   screw_wall_offset = 0.55 + screw_wall_height;
   screw_wall_step_1 = screw_wall_offset * 0.6;
