@@ -10,40 +10,43 @@ max_thickness = 7.2;
 module lorenz_loop() translate([ -6.35, -7 ]) scale(0.25) offset(r = 0.5)
     import(file = "lorenz-loop.svg");
 
-translate([ 0, -3.4, base_z_offset ]) union() {
-  // drawing
-  translate([ 0, 0, 1.8 ]) linear_extrude(height = 0.4) lorenz_loop();
+module ring() union() {
+  translate([ 0, base_z_offset, 3.4 ]) rotate([ 270, 0 ]) {
+    // drawing
+    translate([ 0, 0, 1.8 ]) linear_extrude(height = 0.4) lorenz_loop();
 
-  // base
-  linear_extrude(height = 1.8) difference() {
-    hull() scale(1.1) lorenz_loop();
+    // base
+    linear_extrude(height = 1.8) difference() {
+      hull() scale(1.1) lorenz_loop();
 
-    translate([ 0, 1.3 ]) difference() {
-      translate([ 0, 5 ]) square(13, center = true);
+      translate([ 0, 1.3 ]) difference() {
+        translate([ 0, 5 ]) square(13, center = true);
 
-      translate([ 5, 0 ]) circle(6);
-      translate([ -5, 0 ]) circle(6);
+        translate([ 5, 0 ]) circle(6);
+        translate([ -5, 0 ]) circle(6);
+      }
+
+      translate([ 0, -2.5 ]) difference() {
+        translate([ 0, -2 ]) square(5, center = true);
+
+        translate([ 2, 0 ]) circle(2.5);
+        translate([ -2, 0 ]) circle(2.5);
+      }
     }
+  }
 
-    translate([ 0, -2.5 ]) difference() {
-      translate([ 0, -2 ]) square(5, center = true);
+  difference() {
+    cylinder(h = max_thickness, r = outer_radius);
+    translate([ 0, 0, -max_thickness / 2 ])
+        cylinder(h = max_thickness * 2, r = inner_radius);
 
-      translate([ 2, 0 ]) circle(2.5);
-      translate([ -2, 0 ]) circle(2.5);
-    }
+    rotate([ 3, 0, 0 ]) translate([ 0, 0, max_thickness ])
+        cube([ outer_diameter * 1.1, outer_diameter * 1.1, max_thickness ],
+             center = true);
   }
 }
 
-// ring
-rotate([ 90, 0 ]) difference() {
-  cylinder(h = max_thickness, r = outer_radius);
-  translate([ 0, 0, -max_thickness / 2 ])
-      cylinder(h = max_thickness * 2, r = inner_radius);
-
-  rotate([ 3, 0, 0 ]) translate([ 0, 0, max_thickness ])
-      cube([ outer_diameter * 1.1, outer_diameter * 1.1, max_thickness ],
-           center = true);
-}
+rotate([ 120, 0 ]) ring();
 
 pin_h = 0.5;
 pin_r = 0.3;
@@ -132,4 +135,4 @@ module supports() {
   }
 }
 
-color([ 0.8, 0.8, 0.8 ]) translate([ 0, 0, -outer_radius ]) supports();
+*color([ 0.8, 0.8, 0.8 ]) translate([ 0, 0, -outer_radius ]) supports();
