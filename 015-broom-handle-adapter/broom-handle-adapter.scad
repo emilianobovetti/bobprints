@@ -4,7 +4,7 @@ module helix(height = 1, radius = 1, loops = 1, steps = 100) {
   steps_per_loop = steps / loops;
   z_step = height / steps;
 
-  first_step_frac = (1 % steps_per_loop) / (steps_per_loop - 1);
+  first_step_frac = (1 % steps_per_loop) / steps_per_loop;
   first_step_angle = 360 * first_step_frac;
 
   p1 = [ radius * sin(first_step_angle), z_step ];
@@ -16,7 +16,7 @@ module helix(height = 1, radius = 1, loops = 1, steps = 100) {
   raise_angle = acos((p01 ^ 2 + p03 ^ 2 - p12 ^ 2) / (2 * p01 * p03));
 
   union() for (step = [0:steps]) {
-    loop_frac = (step % steps_per_loop) / (steps_per_loop - 1);
+    loop_frac = (step % steps_per_loop) / steps_per_loop;
     angle = 360 * loop_frac;
     current_point = [ radius * cos(angle), radius * sin(angle), step * z_step ];
 
