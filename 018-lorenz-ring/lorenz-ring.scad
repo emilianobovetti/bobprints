@@ -1,10 +1,10 @@
 $fn = 100;
 
-inner_diameter = 17.3;
+inner_diameter = 17.7;
 inner_radius = inner_diameter / 2;
 outer_diameter = 1.2 * inner_diameter;
 outer_radius = outer_diameter / 2;
-base_z_offset = 8.65;
+base_z_offset = inner_diameter / 2;
 max_thickness = 7.2;
 
 module lorenz_loop() translate([ -6.35, -7 ]) scale(0.25) offset(r = 0.5)
@@ -44,7 +44,7 @@ module ring_circle() difference() {
       cube([ outer_diameter * 1.1, outer_diameter * 1.1, max_thickness ],
            center = true);
 
-  translate([ -10, base_z_offset, -10 ]) cube([ 20, 5, 20 ]);
+  translate([ -10, base_z_offset + 0.4, -10 ]) cube([ 20, 5, 20 ]);
 }
 
 translate([ 0, 15 ]) ring_top();
