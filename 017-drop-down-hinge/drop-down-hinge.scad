@@ -59,16 +59,16 @@ module screw_support() glass() {
 }
 
 module screw_wall(screw_wall_thickness, base_length, border_radius) {
-  screw_wall_width = 26;
-  screw_wall_height = 11.5;
-  screw_wall_offset = 0.55 + screw_wall_height;
-  screw_wall_step_1 = screw_wall_offset * 0.6;
+  screw_wall_width = 30;
+  screw_wall_height = 12;
+  screw_wall_step_1 = screw_wall_height * 0.6;
   screw_hole_radius = 3.5 / 2;
-  screw_hole_position = screw_wall_offset - 4;
+  screw_hole_position = 8;
   screw_hole_dist = 15;
 
   translate([ base_length / 2 - screw_wall_thickness, 0 ])
       rotate(a = [ 90, 0, 90 ]) difference() {
+    // wall
     linear_extrude(height = screw_wall_thickness) {
       hull() {
         translate([ -arm_width / 2, 0 ]) square(size = [ arm_width, 1 ]);
@@ -77,11 +77,12 @@ module screw_wall(screw_wall_thickness, base_length, border_radius) {
 
       hull() {
         translate([ 0, screw_wall_step_1 ]) stadium([ screw_wall_width, 7 ]);
-        translate([ 0, screw_wall_offset ])
+        translate([ 0, screw_wall_height ])
             stadium([ screw_wall_width, border_radius ]);
       }
     }
 
+    // first screw housing hole
     translate([
       screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 2
     ]) {
@@ -89,6 +90,7 @@ module screw_wall(screw_wall_thickness, base_length, border_radius) {
       translate([ 0, 0, -0.75 ]) sphere(r = screw_hole_radius * 2);
     }
 
+    // second screw housing hole
     translate([
       -screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 2
     ]) {
