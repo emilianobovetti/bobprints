@@ -28,10 +28,11 @@ module pivot(pin_height = arm_thickness + pin_space * 2) union() {
 }
 
 module half_rounded_square(size, border_radius = 0.5) hull() {
-  y_offset = (size.y / 2) - border_radius;
+  y_offset = (size.y / 2);
 
-  translate([ 0, y_offset ]) stadium(size = [ size.x, border_radius * 2 ]);
-  translate([ 0, -y_offset ])
+  translate([ 0, y_offset - border_radius ])
+      stadium(size = [ size.x, border_radius * 2 ]);
+  translate([ 0, -y_offset + (border_radius / 2) ])
       square(size = [ size.x, border_radius ], center = true);
 }
 
@@ -42,14 +43,15 @@ module beveled_border(length, height) difference() {
       cylinder(h = length + 0.2, r = height, center = true);
 }
 
-module screw_support() glass() {
+module screw_support() glass() union() {
   base_length = arm_width;
   base_height = 2;
   border_radius = 2;
   wall_thickness = 3;
 
-  rotate(90) linear_extrude(base_height)
-      half_rounded_square([ arm_width, base_length ], border_radius);
+  rotate(90) linear_extrude(base_height) translate([ 0, wall_thickness / 2 ])
+      half_rounded_square([ arm_width, base_length - wall_thickness ],
+                          border_radius);
 
   translate([ base_length / 2 - wall_thickness, 0, base_height ])
       mirror([ 1, 0 ])
