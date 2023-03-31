@@ -60,7 +60,7 @@ module screw_support() glass() {
 
 module screw_wall(screw_wall_thickness, base_length, border_radius) {
   screw_wall_width = 30;
-  screw_wall_height = 12;
+  screw_wall_height = 13;
   screw_wall_step_1 = screw_wall_height * 0.6;
   screw_hole_radius = 3.5 / 2;
   screw_hole_position = 8;
