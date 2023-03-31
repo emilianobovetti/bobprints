@@ -86,18 +86,18 @@ module screw_wall(screw_wall_thickness, base_length, border_radius) {
 
     // first screw housing hole
     translate([
-      screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 2
+      screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 1.4
     ]) {
       cylinder(h = screw_wall_thickness * 2, r = screw_hole_radius);
-      translate([ 0, 0, -0.75 ]) sphere(r = screw_hole_radius * 2);
+      sphere(r = screw_hole_radius * 2);
     }
 
     // second screw housing hole
     translate([
-      -screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 2
+      -screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 1.4
     ]) {
       cylinder(h = screw_wall_thickness * 2, r = screw_hole_radius);
-      translate([ 0, 0, -0.75 ]) sphere(r = screw_hole_radius * 2);
+      sphere(r = screw_hole_radius * 2);
     }
   }
 }
@@ -132,7 +132,6 @@ module hinge() {
     translate([ -arm_hole_x_offset, 0 ]) mirror([ 0, 0, 1 ]) pivot();
   }
 
-  // rotate(-45)
   translate(v = [ -arm_hole_x_offset, 0, -arm_thickness - pin_space ]) {
     // second arm
     linear_extrude(height = arm_thickness) difference() {
