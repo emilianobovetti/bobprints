@@ -19,9 +19,12 @@ module stadium(size) {
   }
 }
 
-module pivot(pin_height = arm_thickness + pin_space * 2) {
-  cylinder(r = arm_hole_radius - pin_space, h = pin_height);
-  translate([ 0, 0, pin_height ]) cylinder(h = 1.2, r = arm_width / 2);
+module glass() color("teal", 0.6) children();
+module solid() color("gray") children();
+
+module pivot(pin_height = arm_thickness + pin_space * 2) union() {
+  solid() cylinder(r = arm_hole_radius - pin_space, h = pin_height);
+  glass() translate([ 0, 0, pin_height ]) cylinder(h = 1.2, r = arm_width / 2);
 }
 
 module half_rounded_square(size, border_radius = 0.5) hull() {
@@ -39,7 +42,7 @@ module beveled_border(length, height) difference() {
       cylinder(h = length + 0.2, r = height, center = true);
 }
 
-module screw_support() {
+module screw_support() glass() {
   base_length = arm_width;
   base_height = 2;
   border_radius = 2;
