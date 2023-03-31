@@ -43,7 +43,10 @@ module beveled_border(length, height) difference() {
       cylinder(h = length + 0.2, r = height, center = true);
 }
 
-module screw_support() glass() union() {
+module front_screw_support() screw_support(screw_housing = 1);
+module back_screw_support() screw_support(screw_housing = -1);
+
+module screw_support(screw_housing = 1) glass() union() {
   base_length = arm_width;
   base_height = 2;
   border_radius = 2;
@@ -57,47 +60,48 @@ module screw_support() glass() union() {
       mirror([ 1, 0 ])
           beveled_border(length = base_length, height = base_height);
 
-  screw_wall(wall_thickness, base_length, border_radius);
+  translate([ base_length / 2 - wall_thickness, 0 ])
+      screw_wall(wall_thickness, border_radius, screw_housing);
 }
 
-module screw_wall(screw_wall_thickness, base_length, border_radius) {
-  screw_wall_width = 30;
-  screw_wall_height = 13;
-  screw_wall_step_1 = screw_wall_height * 0.6;
-  screw_hole_radius = 3.5 / 2;
-  screw_hole_position = 8;
-  screw_hole_dist = 15;
+module screw_wall(thickness, border_radius, housing = 1) {
+  width = 30;
+  height = 13;
+  bevel_height = height * 0.6;
+  hole_radius = 1.75;
+  hole_position = 8;
+  hole_dist = 15;
 
-  translate([ base_length / 2 - screw_wall_thickness, 0 ])
-      rotate(a = [ 90, 0, 90 ]) difference() {
+  rotate([ 90, 0, 90 ]) difference() {
     // wall
-    linear_extrude(height = screw_wall_thickness) {
+    linear_extrude(height = thickness) {
       hull() {
         translate([ -arm_width / 2, 0 ]) square(size = [ arm_width, 1 ]);
-        translate([ 0, screw_wall_step_1 ]) stadium([ screw_wall_width, 7 ]);
+        translate([ 0, bevel_height ]) stadium([ width, 7 ]);
       }
 
       hull() {
-        translate([ 0, screw_wall_step_1 ]) stadium([ screw_wall_width, 7 ]);
-        translate([ 0, screw_wall_height ])
-            stadium([ screw_wall_width, border_radius ]);
+        translate([ 0, bevel_height ]) stadium([ width, 7 ]);
+        translate([ 0, height ]) stadium([ width, border_radius ]);
       }
     }
 
     // first screw housing hole
-    translate([
-      screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 1.4
-    ]) {
-      cylinder(h = screw_wall_thickness * 2, r = screw_hole_radius);
-      sphere(r = screw_hole_radius * 2);
+    translate([ hole_dist / 2, hole_position, thickness / 2 ]) {
+      translate([ 0, 0, -thickness ])
+          cylinder(h = thickness * 2, r = hole_radius);
+
+      translate([ 0, 0, -thickness * 1.1 * housing ])
+          sphere(r = hole_radius * 2);
     }
 
     // second screw housing hole
-    translate([
-      -screw_hole_dist / 2, screw_hole_position, -screw_wall_thickness / 1.4
-    ]) {
-      cylinder(h = screw_wall_thickness * 2, r = screw_hole_radius);
-      sphere(r = screw_hole_radius * 2);
+    translate([ -hole_dist / 2, hole_position, thickness / 2 ]) {
+      translate([ 0, 0, -thickness ])
+          cylinder(h = thickness * 2, r = hole_radius);
+
+      translate([ 0, 0, -thickness * 1.1 * housing ])
+          sphere(r = hole_radius * 2);
     }
   }
 }
@@ -125,7 +129,7 @@ module hinge() {
     // first pivot with screw support
     translate([ arm_hole_x_offset, 0, -pin_space ]) {
       pivot();
-      mirror([ 0, 0, 1 ]) screw_support();
+      mirror([ 0, 0, 1 ]) front_screw_support();
     }
 
     // central pivot
@@ -160,7 +164,7 @@ module hinge() {
     // second pivot with screw support
     translate([ -arm_hole_x_offset, 0, arm_thickness + pin_space ]) {
       mirror([ 0, 0, 1 ]) pivot();
-      rotate(180) screw_support();
+      rotate(180) back_screw_support();
     }
   }
 }
