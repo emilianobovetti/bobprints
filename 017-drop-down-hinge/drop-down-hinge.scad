@@ -24,7 +24,7 @@ module solid() color("gray") children();
 
 module pivot(pin_height = arm_thickness + pin_space * 2) union() {
   solid() cylinder(r = arm_hole_radius - pin_space, h = pin_height);
-  glass() translate([ 0, 0, pin_height ]) cylinder(h = 1.2, r = arm_width / 2);
+  glass() translate([ 0, 0, pin_height ]) cylinder(h = 2, r = arm_width / 2);
 }
 
 module half_rounded_square(size, border_radius = 0.5) hull() {
@@ -66,7 +66,7 @@ module screw_support(screw_housing = 1) glass() union() {
 
 module screw_wall(thickness, border_radius, housing = 1) {
   width = 30;
-  height = 13;
+  height = 15;
   bevel_height = height * 0.6;
   hole_radius = 1.75;
   hole_position = 8;
