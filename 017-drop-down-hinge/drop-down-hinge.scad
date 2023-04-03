@@ -24,7 +24,9 @@ module solid() color("gray") children();
 
 module pivot(pin_height = arm_thickness + pin_space * 2) union() {
   solid() cylinder(r = arm_hole_radius - pin_space, h = pin_height);
-  glass() translate([ 0, 0, pin_height ]) cylinder(h = 2, r = arm_width / 2);
+
+  glass() translate([ 0, 0, pin_height ])
+      cylinder(h = arm_thickness, r = arm_width / 2);
 }
 
 module half_rounded_square(size, border_radius = 0.5) hull() {
