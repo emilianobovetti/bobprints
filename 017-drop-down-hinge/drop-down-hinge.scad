@@ -7,7 +7,7 @@ arm_hole_border = 4;
 arm_hole_radius = arm_width / 2 - arm_hole_border;
 pin_space = 0.4;
 lock_ext_width = 5;
-lock_ext_length = 10;
+lock_ext_length = 11.5;
 
 module stadium(size) {
   radius = size.y / 2;
@@ -49,36 +49,36 @@ module front_screw_support() screw_support(screw_housing = 1);
 module back_screw_support() screw_support(screw_housing = -1);
 
 module screw_support(screw_housing = 1) glass() union() {
-  base_length = arm_width;
-  base_height = 2;
-  border_radius = 2;
   wall_thickness = 3;
+  base_length = arm_width + wall_thickness;
+  base_height = 2;
+  base_width = 20;
+  border_radius = 2;
+  wall_offset = (base_length / 2) - (wall_thickness / 2);
 
-  rotate(90) linear_extrude(base_height) translate([ 0, wall_thickness / 2 ])
-      half_rounded_square([ arm_width, base_length - wall_thickness ],
-                          border_radius);
+  rotate(90) linear_extrude(base_height) half_rounded_square(
+      [ base_width, base_length - wall_thickness ], border_radius);
 
-  translate([ base_length / 2 - wall_thickness, 0, base_height ])
-      mirror([ 1, 0 ])
-          beveled_border(length = base_length, height = base_height);
+  translate([ wall_offset, 0, base_height ]) mirror([ 1, 0 ])
+      beveled_border(length = base_width, height = wall_thickness);
 
-  translate([ base_length / 2 - wall_thickness, 0 ])
-      screw_wall(wall_thickness, border_radius, screw_housing);
+  translate([ wall_offset, 0 ])
+      screw_wall(base_width, wall_thickness, border_radius, screw_housing);
 }
 
-module screw_wall(thickness, border_radius, housing = 1) {
-  width = 30;
-  height = 15;
+module screw_wall(base_width, thickness, border_radius, housing = 1) {
+  width = 26;
+  height = 14;
   bevel_height = height * 0.6;
   hole_radius = 1.75;
-  hole_position = 8;
+  hole_position = 10;
   hole_dist = 15;
 
   rotate([ 90, 0, 90 ]) difference() {
     // wall
     linear_extrude(height = thickness) {
       hull() {
-        translate([ -arm_width / 2, 0 ]) square(size = [ arm_width, 1 ]);
+        translate([ -base_width / 2, 0 ]) square(size = [ base_width, 1 ]);
         translate([ 0, bevel_height ]) stadium([ width, 7 ]);
       }
 
