@@ -141,14 +141,10 @@ module hinge() {
   translate(v = [ -arm_hole_x_offset, 0, -arm_thickness - pin_space ]) {
     // second arm
     linear_extrude(height = arm_thickness) difference() {
-      union() {
-        stadium([ arm_length, arm_width ]);
+      second_arm_ext = lock_ext_length - 2;
 
-        // lock extension arm
-        translate([ arm_hole_x_offset, lock_pin_radius - (arm_width / 2) ]) {
-          stadium([ lock_ext_length * 2, lock_ext_width ]);
-        }
-      }
+      translate([ second_arm_ext / 2, 0 ])
+          stadium([ arm_length + second_arm_ext, arm_width ]);
 
       translate([ arm_hole_x_offset, 0 ]) circle(r = arm_hole_radius);
       translate([ -arm_hole_x_offset, 0 ]) circle(r = arm_hole_radius);
