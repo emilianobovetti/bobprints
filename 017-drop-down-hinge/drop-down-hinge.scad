@@ -51,7 +51,7 @@ module back_screw_support() screw_support(screw_housing = -1);
 module screw_support(screw_housing = 1) glass() union() {
   wall_thickness = 3;
   base_length = arm_width + wall_thickness;
-  base_height = 2;
+  base_height = 3;
   base_width = 20;
   border_radius = 2;
   wall_offset = (base_length / 2) - (wall_thickness / 2);
@@ -68,10 +68,10 @@ module screw_support(screw_housing = 1) glass() union() {
 
 module screw_wall(base_width, thickness, border_radius, housing = 1) {
   width = 26;
-  height = 14;
+  height = 16;
   bevel_height = height * 0.6;
   hole_radius = 1.75;
-  hole_position = 10;
+  hole_position = 12;
   hole_dist = 15;
 
   rotate([ 90, 0, 90 ]) difference() {
