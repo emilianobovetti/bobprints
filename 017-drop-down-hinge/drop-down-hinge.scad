@@ -5,7 +5,7 @@ arm_length = 112;
 arm_thickness = 2;
 arm_hole_border = 4;
 arm_hole_radius = arm_width / 2 - arm_hole_border;
-pin_space = 0.4;
+pin_space = 0.5;
 lock_ext_width = 5;
 lock_ext_length = 11.5;
 
