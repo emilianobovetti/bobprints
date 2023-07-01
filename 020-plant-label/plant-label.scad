@@ -20,8 +20,9 @@ module plant_label(lines, font = "odstemplik:style=Bold", font_size = 10,
   pin_thickness = 2;
   pin_width = 10;
   pin_height = 80;
+  pin_offset = -0.0004 * pow(board_size, 2) - 0.02 * board_size + 4;
 
-  translate([ -pin_width / 2, -board_size / 2 - pin_height ])
+  translate([ -pin_width / 2, pin_offset - board_size / 2 - pin_height ])
       pin(pin_width, pin_height, pin_thickness);
 
   linear_extrude(height = heart_thickness) heart(width = board_size);
