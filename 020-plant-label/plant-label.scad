@@ -3,7 +3,8 @@ $fn = 100;
 module pin(width, height, thickness) linear_extrude(height = thickness) {
   square([ width, height ]);
 
-  translate([ 5, 0 ]) mirror([ 0, 1 ]) isosceles(base = 10, height = 20);
+  translate([ width / 2, 0 ]) mirror([ 0, 1 ])
+      isosceles(base = width, height = 20);
 }
 
 module isosceles(base, height)
@@ -14,11 +15,12 @@ module heart(width) translate([ -width / 2, 0 ]) scale(width / 100)
     import(file = "heart.svg");
 
 module plant_label(lines, font = "odstemplik:style=Bold", font_size = 10,
-                   font_spacing = 1, board_size = 100) union() {
+                   font_spacing = 1, width_scale = 1) union() {
+  board_size = width_scale * 100;
   heart_thickness = 2.2;
   text_thickness = 1.4;
   pin_thickness = 2;
-  pin_width = 10;
+  pin_width = width_scale * 10;
   pin_height = 80;
   pin_offset = -0.0004 * pow(board_size, 2) - 0.02 * board_size + 4;
 
