@@ -28,13 +28,14 @@ module plant_label(lines, font = "odstemplik:style=Bold", font_size = 10,
   linear_extrude(height = heart_thickness) heart(width = board_size);
 
   line_height = font_size * 1.2;
-  max_offset = board_size / 2;
-  mid_offset = max_offset / 2;
 
   last_index = len(lines) - 1;
-  base_text = mid_offset - (line_height * last_index * 0.5);
+  base_offset = 0.183 * board_size - 9;
+  center_offset = 0.23 * board_size - 5;
+  text_offset = base_offset - center_offset +
+                min(line_height * last_index / 2, center_offset);
 
-  translate([ 0, 20 - base_text, heart_thickness ]) color([ 0.5, 0, 0 ])
+  translate([ 0, text_offset, heart_thickness ]) color([ 0.5, 0, 0 ])
       linear_extrude(height = text_thickness) for (idx = [0:last_index])
           translate([ 0, -line_height * idx ])
               text(lines[idx], halign = "center", font = font, size = font_size,
