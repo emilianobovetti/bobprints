@@ -14,11 +14,30 @@ module isosceles(base, height)
 module heart(width) translate([ -width / 2, 0 ]) scale(width / 100)
     import(file = "heart.svg");
 
-module plant_label(lines, font = "odstemplik:style=Bold", font_size = 10,
-                   font_spacing = 1, width_scale = 1) union() {
+text_thickness = 1.4;
+serif_bold = "odstemplik:style=Bold";
+default_font_size = 10;
+default_font_spacing = 1;
+
+module text_line(content, thickness, font_family, font_size, font_spacing)
+    linear_extrude(height = thickness)
+        text(content, halign = "center", font = font_family, size = font_size,
+             spacing = font_spacing);
+
+module text_label(lines, thickness = text_thickness, font_family = serif_bold,
+                  font_size = default_font_size,
+                  font_spacing = default_font_spacing) {
+  line_height = font_size * 1.2;
+
+  for (idx = [0:len(lines) - 1])
+    translate([ 0, -line_height * idx ])
+        text_line(lines[idx], thickness, font_family, font_size, font_spacing);
+}
+
+module plant_label(lines, font_size = default_font_size,
+                   width_scale = 1) union() {
   board_size = width_scale * 100;
   heart_thickness = 2.2;
-  text_thickness = 1.4;
   pin_thickness = 2;
   pin_width = width_scale * 10;
   pin_height = 80;
@@ -38,10 +57,7 @@ module plant_label(lines, font = "odstemplik:style=Bold", font_size = 10,
                 min(line_height * last_index / 2, center_offset);
 
   translate([ 0, text_offset, heart_thickness ]) color([ 0.5, 0, 0 ])
-      linear_extrude(height = text_thickness) for (idx = [0:last_index])
-          translate([ 0, -line_height * idx ])
-              text(lines[idx], halign = "center", font = font, size = font_size,
-                   spacing = font_spacing);
+      text_label(lines);
 }
 
 plant_label([ "Pesco", "Duchessa D'Este" ], font_size = 10.5);
