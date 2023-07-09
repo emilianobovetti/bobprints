@@ -63,16 +63,29 @@ module plant_label(lines, font_size = default_font_size,
 module plant_label_base(width_scale = 1)
     plant_label(lines = [], width_scale = width_scale);
 
-plant_label([ "Pesco", "Duchessa D'Este" ], font_size = 10.5);
-// plant_label([ "Susino", "Shiro", "Goccia d'Oro" ], font_size = 10.5);
-// plant_label(["Lavanda"], font_size = 14);
-// plant_label(["Rosmarino"], font_size = 14);
-// plant_label(["Salvia"], font_size = 14);
-// plant_label(["Basilico"], font_size = 14);
-// plant_label(["Menta"], font_size = 14);
-// plant_label(["Timo"], font_size = 14);
-// plant_label(["Frangipane"], font_size = 14);
-// plant_label(["Limone"], font_size = 14);
-// scale(0.3) plant_label(["Patate"], font_size = 14);
-// plant_label([ "Erba gatta", "digestiva" ], font_size = 14);
-// plant_label([ "Erba gatta", "stimolante" ], font_size = 14);
+// label = [ "Pesco", "Duchessa D'Este" ];
+// label = [ "Susino", "Shiro", "Goccia d'Oro" ];
+
+// label = ["Lavanda"];
+// label = ["Rosmarino"];
+// label = ["Salvia"];
+// label = ["Basilico"];
+// label = ["Menta"];
+// label = ["Timo"];
+// label = ["Frangipane"];
+// label = ["Limone"];
+// label = [ "Erba gatta", "digestiva" ];
+// label = [ "Erba gatta", "stimolante" ];
+// label = ["Patate"];
+// label = ["Zucchine"];
+label = ["Pomodori"];
+// label = ["Aglio"];
+
+// width_scale = 1;
+width_scale = 0.6;
+// font_size = 14;
+font_size = 10.5;
+
+plant_label(lines = label, font_size = font_size, width_scale = width_scale);
+// plant_label_base(width_scale = width_scale);
+// text_label(lines = label, font_size = font_size);
