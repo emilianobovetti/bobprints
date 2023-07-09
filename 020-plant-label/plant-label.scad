@@ -29,7 +29,7 @@ module text_label(lines, thickness = text_thickness, font_family = serif_bold,
                   font_spacing = default_font_spacing) {
   line_height = font_size * 1.2;
 
-  for (idx = [0:len(lines) - 1])
+  for (idx = [0:max(len(lines) - 1, 0)])
     translate([ 0, -line_height * idx ])
         text_line(lines[idx], thickness, font_family, font_size, font_spacing);
 }
@@ -59,6 +59,9 @@ module plant_label(lines, font_size = default_font_size,
   translate([ 0, text_offset, heart_thickness ]) color([ 0.5, 0, 0 ])
       text_label(lines);
 }
+
+module plant_label_base(width_scale = 1)
+    plant_label(lines = [], width_scale = width_scale);
 
 plant_label([ "Pesco", "Duchessa D'Este" ], font_size = 10.5);
 // plant_label([ "Susino", "Shiro", "Goccia d'Oro" ], font_size = 10.5);
