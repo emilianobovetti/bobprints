@@ -108,7 +108,7 @@ module screw_wall(base_width, thickness, border_radius, housing = 1) {
   }
 }
 
-module hinge() {
+module hinge(mirror_screw_supports = 0) {
   arm_hole_x_offset = (arm_length / 2) - (arm_width / 2);
   lock_pin_radius = lock_ext_width / 2;
   lock_pin_thickness = arm_thickness + pin_space;
@@ -129,7 +129,8 @@ module hinge() {
     }
 
     // first pivot with screw support
-    translate([ arm_hole_x_offset, 0, -pin_space ]) {
+    fst_z_offset = -pin_space - (mirror_screw_supports == 1 ? arm_thickness : 0);
+    mirror([ 0, 0, mirror_screw_supports ]) translate([ arm_hole_x_offset, 0, fst_z_offset ]) {
       pivot();
       mirror([ 0, 0, 1 ]) rotate(90) front_screw_support();
     }
@@ -160,11 +161,15 @@ module hinge() {
     }
 
     // second pivot with screw support
-    translate([ -arm_hole_x_offset, 0, arm_thickness + pin_space ]) {
+    snd_z_offset = pin_space + (mirror_screw_supports == 0 ? arm_thickness : 0);
+    mirror([ 0, 0, mirror_screw_supports ]) translate([ -arm_hole_x_offset, 0, snd_z_offset ]) {
       mirror([ 0, 0, 1 ]) pivot();
       rotate(90) back_screw_support();
     }
   }
 }
 
-rotate($preview ? 0 : [ 90, 0, 45 ]) hinge();
+module left_hinge() hinge(mirror_screw_supports = 0);
+module right_hinge() hinge(mirror_screw_supports = 1);
+
+rotate($preview ? 0 : [ 90, 0, 45 ]) left_hinge();
