@@ -131,7 +131,7 @@ module hinge() {
     // first pivot with screw support
     translate([ arm_hole_x_offset, 0, -pin_space ]) {
       pivot();
-      rotate(270) mirror([ 0, 0, 1 ]) front_screw_support();
+      mirror([ 0, 0, 1 ]) rotate(90) front_screw_support();
     }
 
     // central pivot
@@ -162,7 +162,7 @@ module hinge() {
     // second pivot with screw support
     translate([ -arm_hole_x_offset, 0, arm_thickness + pin_space ]) {
       mirror([ 0, 0, 1 ]) pivot();
-      rotate(270) back_screw_support();
+      rotate(90) back_screw_support();
     }
   }
 }
