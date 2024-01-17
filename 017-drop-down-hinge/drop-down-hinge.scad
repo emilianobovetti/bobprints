@@ -132,7 +132,7 @@ module hinge(mirror_screw_supports = 0) {
     fst_z_offset = -pin_space - (mirror_screw_supports == 1 ? arm_thickness : 0);
     mirror([ 0, 0, mirror_screw_supports ]) translate([ arm_hole_x_offset, 0, fst_z_offset ]) {
       pivot();
-      mirror([ 0, 0, 1 ]) rotate(90) front_screw_support();
+      mirror([ 0, 0, 1 ]) rotate(270) front_screw_support();
     }
 
     // central pivot
@@ -164,7 +164,7 @@ module hinge(mirror_screw_supports = 0) {
     snd_z_offset = pin_space + (mirror_screw_supports == 0 ? arm_thickness : 0);
     mirror([ 0, 0, mirror_screw_supports ]) translate([ -arm_hole_x_offset, 0, snd_z_offset ]) {
       mirror([ 0, 0, 1 ]) pivot();
-      rotate(90) back_screw_support();
+      rotate(270) back_screw_support();
     }
   }
 }
